@@ -3,24 +3,6 @@ const { GraphQLServer } = require('graphql-yoga');
 
 let { links } = require('./mock')
 
-// GraphQL Schema
-const typeDefs = `
-    type Query {
-        info: String!
-        feed: [Link!]!
-    }
-
-    type Mutation {
-        post(url: String!, description: String!): Link!
-    }
-
-    type Link {
-        id : ID!
-        description: String!
-        url: String!
-    }
-`
-
 // GraphQL Resolvers
 let idCount = links.length;
 const resolvers = {
@@ -52,7 +34,7 @@ const resolvers = {
 // GraphQL server
 // This tells the server what API operations are accepted and how they should be resolved
 const server = new GraphQLServer({
-    typeDefs,
+    typeDefs : './schema.graphql',
     resolvers
 })
 
