@@ -1,0 +1,1 @@
+graphql-js : reference implementation ensures the return types of your resolvers adhere to the type definitions from your GraphQL schema => it protects us from making stupid mistakes :).

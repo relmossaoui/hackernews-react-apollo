@@ -1,0 +1,1 @@
+SDL (Schema Definition Language) : it has a type system that allows to define data structures (like other strongly typed programming languages Java, TypeScript). GraphQL is written in the GraphQL SDL.
