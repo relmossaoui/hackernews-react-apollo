@@ -1,0 +1,22 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "description": "backend code",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest "
+  },
+  "keywords": [
+    "GraphQL",
+    "graphql-yoga",
+    "Prisma",
+    "Express",
+    "appolo-server",
+    "graphql-js"
+  ],
+  "author": "relmossaoui",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-yoga": "^1.18.3"
+  }
+}
