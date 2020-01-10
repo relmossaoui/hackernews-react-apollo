@@ -7,19 +7,42 @@ let { links } = require('./mock')
 let idCount = links.length;
 const resolvers = {
     Query : {
-        info : () => 'null',
-        feed : () => links
+        info : () => 'This is the API of a Hackernews Clone',
+        feed : () => links,
+        link : (parent, args) => links.find(link => link.id === args.id)
     },
 
     Mutation : {
         post(parent, args) {
             const link = {
                 id: `link-${idCount++}`,
-                description: args.description,
+                description : args.description,
                 url: args.url
             }
 
             links.push(link)
+
+            return link
+        },
+
+        updateLink(parent, args) {
+            let link = links.find(link => link.id === args.id)
+
+            if (!link) return null
+
+            if (args.url) link.url = args.url
+            if (args.description) link.description = args.description
+
+            return link
+        },
+
+        deleteLink(parent, args) {
+            let index = links.findIndex(link => link.id === args.id);
+            let link = null;
+            if (index > -1) {
+                link = links[index]
+                links.splice(index, 1)
+            }
 
             return link
         }
