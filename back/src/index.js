@@ -7,32 +7,32 @@ const { prisma } = require('./generated/prisma-client')
 const resolvers = {
     Query : {
         info : () => 'This is the API of a Hackernews Clone',
-        feed : () => prisma.links(),
-        link : (parent, args) => prisma.link({
+        feed : (parent, args, context) => context.prisma.links(),
+        link : (parent, args, context) => context.prisma.link({
             id : args.id
         }) 
     },
 
     Mutation : {
-        post(parent, args) {
+        post(parent, args, context) {
 
-            return prisma.createLink({
+            return context.prisma.createLink({
                 description : args.description,
                 url: args.url
             })
         },
 
-        async updateLink(parent, args) {
+        updateLink(parent, args, context) {
             let data = {}
 
             if (args.url) data.url = args.url
             if (args.description) data.description = args.description
 
-            return prisma.updateLink({data, where: { id: args.id}})
+            return context.prisma.updateLink({data, where: { id: args.id}})
         },
 
-        deleteLink(parent, args) {
-            return prisma.deleteLink({id: args.id})
+        deleteLink(parent, args, context) {
+            return context.prisma.deleteLink({id: args.id})
         }
     },
 
@@ -46,7 +46,8 @@ const resolvers = {
 // This tells the server what API operations are accepted and how they should be resolved
 const server = new GraphQLServer({
     typeDefs : './schema.graphql',
-    resolvers
+    resolvers,
+    context : { prisma }
 })
 
 server.start(() => console.log(`Server is running on port :  4000 `))
