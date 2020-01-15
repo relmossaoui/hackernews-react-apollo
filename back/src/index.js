@@ -1,46 +1,15 @@
 
 const { GraphQLServer } = require('graphql-yoga');
 
-const { prisma } = require('./generated/prisma-client')
+const { prisma } = require('./generated/prisma-client');
+
+const Query = require('./resolvers/Query')
+const Mutation = require('./resolvers/Mutation')
+const Link = require('./resolvers/Link')
+const User = require('./resolvers/User')
 
 // GraphQL Resolvers
-const resolvers = {
-    Query : {
-        info : () => 'This is the API of a Hackernews Clone',
-        feed : (parent, args, context) => context.prisma.links(),
-        link : (parent, args, context) => context.prisma.link({
-            id : args.id
-        }) 
-    },
-
-    Mutation : {
-        post(parent, args, context) {
-
-            return context.prisma.createLink({
-                description : args.description,
-                url: args.url
-            })
-        },
-
-        updateLink(parent, args, context) {
-            let data = {}
-
-            if (args.url) data.url = args.url
-            if (args.description) data.description = args.description
-
-            return context.prisma.updateLink({data, where: { id: args.id}})
-        },
-
-        deleteLink(parent, args, context) {
-            return context.prisma.deleteLink({id: args.id})
-        }
-    },
-
-    // No need to definde resolvers for Link type fields (are trivials)
-    Link : {
-
-    }
-}
+const resolvers = { Query, Mutation, Link, User }
 
 // GraphQL server
 // This tells the server what API operations are accepted and how they should be resolved
