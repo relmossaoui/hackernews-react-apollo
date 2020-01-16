@@ -16,7 +16,12 @@ const resolvers = { Query, Mutation, Link, User }
 const server = new GraphQLServer({
     typeDefs : './schema.graphql',
     resolvers,
-    context : { prisma }
+    context: request => {
+        return {
+          ...request,
+          prisma,
+        }
+    },
 })
 
 server.start(() => console.log(`Server is running on port :  4000 `))

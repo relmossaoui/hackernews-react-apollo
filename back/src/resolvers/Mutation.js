@@ -1,13 +1,16 @@
-const APP_SECRET = "jwt_secret"
+const { APP_SECRET, getUserId } = require('../utils')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+
 module.exports = {
     post(parent, args, context) {
+        let userId = getUserId(context)
 
         return context.prisma.createLink({
             description : args.description,
-            url: args.url
+            url: args.url,
+            postedBy : { connect : { id: userId }}
         })
     },
 
