@@ -10,10 +10,10 @@ const Subscription  = require('./resolvers/Subscription')
 const Link          = require('./resolvers/Link')
 const User          = require('./resolvers/User')
 const Vote          = require('./resolvers/Vote')
-
+const Feed          = require('./resolvers/Feed')
 
 // GraphQL Resolvers
-const resolvers = { Query, Mutation, Subscription, Link, User, Vote }
+const resolvers = { Query, Mutation, Subscription, Link, User, Vote, Feed }
 
 // GraphQL server
 // This tells the server what API operations are accepted and how they should be resolved
