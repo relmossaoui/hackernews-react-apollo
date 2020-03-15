@@ -3,13 +3,15 @@ const { GraphQLServer } = require('graphql-yoga');
 
 const { prisma } = require('./generated/prisma-client');
 
-const Query = require('./resolvers/Query')
-const Mutation = require('./resolvers/Mutation')
-const Link = require('./resolvers/Link')
-const User = require('./resolvers/User')
+const Query         = require('./resolvers/Query')
+const Mutation      = require('./resolvers/Mutation')
+const Link          = require('./resolvers/Link')
+const User          = require('./resolvers/User')
+const Subscription  = require('./resolvers/Subscription')
+
 
 // GraphQL Resolvers
-const resolvers = { Query, Mutation, Link, User }
+const resolvers = { Query, Mutation, Subscription, Link, User }
 
 // GraphQL server
 // This tells the server what API operations are accepted and how they should be resolved
