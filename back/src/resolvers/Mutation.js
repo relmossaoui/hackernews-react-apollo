@@ -27,6 +27,23 @@ module.exports = {
         return context.prisma.deleteLink({id: args.id})
     },
 
+    async voteLink(parent, { id }, context) {
+        let userId = getUserId(context);
+        
+        const voteExists = await context.prisma.$exists.vote({
+            user : { id : userId },
+            link : { id }
+        })
+
+        if (voteExists)
+            throw new Error('this link already voted')
+
+        return context.prisma.createVote({
+            user : { connect : { id: userId }},
+            link : { connect : { id }}
+        })        
+    },
+
     async signup(parent, { email, password, name }, context) {
         password = await bcrypt.hash(password, 10)
 
